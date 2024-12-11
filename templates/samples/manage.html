@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+            <div class="error_text" >
+                {% if obj.errors|length > 0 %}
+                    {% for error in obj.errors  %}
+                        <div>{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div>
+                <form action="/samples/manage?pkval={{ obj.data[0].vid }}&action=update" method="POST">
+              
+
+                    <label for="SampleName">Name:</label>
+                    <input type="text" id="SampleName" name="Name of Sample" value="{{ obj.data[0].SampleName }}"><br><br>
+
+                    <label for="Location">Location:</label>
+                    <input type="text" id="Location" name="Location of Sample" value="{{ obj.data[0].Location }}"><br><br>
+
+                    <label for="DateSampled">Date of Sampling:</label>
+                    <input type="text" id="DateSampled" name="DateSampled" value="{{ obj.data[0].DateSampled }}"><br><br>
+
+                    Collector:<br>
+                    <select name="Collector_uid">
+                        {% for user in obj.users.data  %}
+                            {% if  obj.data[0].uid == user.uid %}
+                                <option selected="true" value="{{ user.uid }}">{{ user.user_name }} ({{ user.role }})</option>
+                            {% else %}
+                                <option value="{{ user.uid }}">{{ user.name }} ({{ user.role }})</option>
+                            {% endif %}
+                        {% endfor %}
+
+                    <input type="submit" value="Submit" />
+                </form>
+                
+            </div>
+            <div>
+                <br><br>
+                <a href="/samples/manage?pkval={{ obj.data[0].vid }}&action=delete">Delete</a>
+            </div>
+{% endblock %}

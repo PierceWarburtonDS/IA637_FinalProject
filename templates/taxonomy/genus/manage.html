@@ -1,0 +1,25 @@
+{% extends "taxonomy_base.html" %}
+
+{% block content %}
+            <div class="error_text" >
+                {% if obj.errors|length > 0 %}
+                    {% for error in obj.errors  %}
+                        <div>{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div>
+                <form action="/taxonomy/genus/manage?pkval={{ obj.data[0].genusID }}&action=update" method="POST">
+                    Species:<br>
+                    <input type="text" name="Genus" value="{{ obj.data[0].Genus }}" />
+                    <br>
+                    <br>
+                    <input type="submit" value="Submit" />
+                </form>
+                
+            </div>
+            <div>
+                <br><br>
+                <a href="/taxonomy/genus/manage?pkval={{ obj.data[0].genusID }}&action=delete">Delete</a>
+            </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+db:
+  host: 'mysql.clarksonmsda.org'
+  user: 'warburpd'
+  passwd: 'Potsdam1806'
+  db: 'warburpd_IA637'
+  port: 3306
+tables:
+  user: 'warburpd_users'
+  samples: 'warburpd_samples'
+  sequencing: 'warburpd_sequencing'
+  phylum: 'warburpd_phylum'
+  genus: 'warburpd_genus'
+  species: 'warburpd_species'
+  detections: 'warburpd_detections'
+

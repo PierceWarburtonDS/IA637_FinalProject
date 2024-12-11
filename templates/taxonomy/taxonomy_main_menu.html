@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+<div> <a href="/main">Main menu</a> </div><br><br>
+{% block content %}
+    <h1>Taxonomical Records</h1>
+      <div id="menumsg">
+		Hello, {{ me.name }}  ({{ me.uid }}, {{ me.role }})
+	  </div>
+	<br><br>
+
+	
+	<a href="/taxonomy/phylum/manage">Manage Phylums</a><br>
+	<a href="/taxonomy/genus/manage">Manage Genera</a><br>
+	<a href="/taxonomy/species/manage">Manage Species</a><br>
+	<br>
+	<br>
+	<a href="/taxonomy/view">View Taxonomy</a><br>
+	<br>
+	<a href="/main">Go back</a><br>
+
+	
+	
+{% endblock %}

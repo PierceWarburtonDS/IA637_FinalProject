@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+            <div class="error_text">
+                {% if obj.errors|length > 0 %}
+                    {% for error in obj.errors  %}
+                        <div>{{ error }}</div>
+                    {% endfor %}
+				{% endif %}
+            </div>
+            <div>
+                <form action="/samples/manage?action=insert" method="POST">
+             
+                    <label for="SampleName">Name of Sample:</label>
+                    <input type="text" id="SampleName" name="SampleName" value="{{ obj.data[0].SampleName }}"><br><br>
+
+                    <label for="Location">Location of Sample:</label>
+                    <input type="text" id="Location" name="Location" value="{{ obj.data[0].Location }}"><br><br>
+
+                    <label for="DateSampled">Date of Sampling:</label>
+                    <input type="txt" id="DateSampled" name="DateSampled" value="{{ obj.data[0].DateSampled }}"><br><br>
+
+                    Collector:<br>
+                    <select name="Collector_uid">
+                        {% for user in obj.users.data  %}
+                            {% if  obj.data[0].uid == user.uid %}
+                                <option selected="true" value="{{ user.uid }}">{{ user.name }} ({{ user.role }})</option>
+                            {% else %}
+                                <option value="{{ user.uid }}">{{ user.name }} ({{ user.role }})</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+
+
+                    <!--
+                    Role:<br>
+                    <select name="role">
+                        {% for role in obj.roles  %}
+                            {% if  obj.data[0].role == role.value %}
+                                <option selected="true" value="{{ role.value }}">{{ role.text }}</option>
+                            {% else %}
+                                <option value="{{ role.value }}">{{ role.text }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>-->
+                    <br>
+                    <br>
+                    <input type="submit" value="Submit" />
+                </form>
+                
+            </div>
+{% endblock %}

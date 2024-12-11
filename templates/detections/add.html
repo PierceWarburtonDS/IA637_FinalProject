@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block content %}
+            <div class="error_text">
+                {% if obj.errors|length > 0 %}
+                    {% for error in obj.errors  %}
+                        <div>{{ error }}</div>
+                    {% endfor %}
+				{% endif %}
+            </div>
+            <div>
+                <form action="/detections/manage?action=insert" method="POST">
+             
+                    <label for="DetectionMethod">Detection Method:</label>
+                    <input type="text" id="DetectionMethod" name="DetectionMethod" value="{{ obj.data[0].DetectionMethod }}"><br><br>
+
+                    <label for="DateDetected">Date of Detection:</label>
+                    <input type="text" id="DateDetected" name="DateDetected" value="{{ obj.data[0].DateDetected }}"><br><br>
+
+                    Analyst who detected:<br>
+                    <select name="Analyst">
+                        {% for user in obj.users.data  %}
+                            {% if  obj.data[0].uid == user.uid %}
+                                <option selected="true" value="{{ user.uid }}">{{ user.user_name }}</option>
+                            {% else %}
+                                <option value="{{ user.uid }}">{{ user.user_name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <br>
+                    Sample used:<br>
+                    <select name="Sample">
+                        {% for samples in obj.samples.data  %}
+                            {% if  obj.data[0].SampleID == samples.SampleID %}
+                                <option selected="true" value="{{ samples.SampleID }}">{{ samples.SampleName }}</option>
+                            {% else %}
+                                <option value="{{ samples.SampleID }}">{{ samples.SampleName }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <br>
+                    Sequencing session used:<br>
+                    <select name="Sequencing">
+                        {% for sequencing in obj.sequencing.data  %}
+                            {% if  obj.data[0].SeqID == sequencing.SeqID %}
+                                <option selected="true" value="{{ sequencing.SeqID }}">{{ sequencing.Technique }} {{ sequencing.DateSeq }}</option>
+                            {% else %}
+                                <option value="{{ sequencing.SeqID }}">{{ sequencing.Technique }} {{ sequencing.DateSeq }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <br>
+                    Species found:<br>
+                    <select name="Species">
+                        {% for species in obj.species.data  %}
+                            {% if  obj.data[0].SpeciesID == species.speciesID %}
+                                <option selected="true" value="{{ species.speciesID }}">{{ species.Species }}</option>
+                            {% else %}
+                                <option value="{{ species.speciesID }}">{{ species.Species }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+
+                    <label for="new_item">Or Add a New Species:</label>
+                    <input type="text" name="new_species" id="new_species" placeholder="Enter a new species">
+                    <br>
+                    <br>    
+                    Genus found:<br>
+                    <select name="Genus">
+                        {% for genus in obj.genus.data  %}
+                            {% if  obj.data[0].GenusID == genus.genusID %}
+                                <option selected="true" value="{{ genus.genusID }}">{{ genus.Genus }}</option>
+                            {% else %}
+                                <option value="{{ genus.genusID }}">{{ genus.Genus }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <label for="new_item">Or Add a New Genus:</label>
+                    <input type="text" name="new_genus" id="new_genus" placeholder="Enter a new Genus">
+                    <br>
+                    <br>
+                    Phylum found:<br>
+                    <select name="Phylum">
+                        {% for phylum in obj.phylum.data  %}
+                            {% if  obj.data[0].PhylumID == phylum.PhylumID %}
+                                <option selected="true" value="{{ phylum.genusID }}">{{ phylum.Phylum }}</option>
+                            {% else %}
+                                <option value="{{ phylum.PhylumID }}">{{ phylum.Phylum }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <label for="new_item">Or Add a New Phylum:</label>
+                    <input type="text" name="new_phylum" id="new_phylum" placeholder="Enter a new Phylum">
+
+                    <br>
+                    <br>
+                    <input type="submit" value="Submit" />
+                </form>
+                
+            </div>
+{% endblock %}

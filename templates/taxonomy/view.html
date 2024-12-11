@@ -1,0 +1,45 @@
+{% extends "tablebase.html" %}
+
+{% block content %}
+  <table id="data" class="table table-striped",style="display: inline-block;">
+    <thead>
+      <tr>
+        <th>Phylum</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in objs.phylum.data %}
+        <tr>
+          <td>{{ row.Phylum }}</td>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <table id="data" class="table table-striped",style="display: inline-block;">
+    <thead>
+      <tr>
+        <th>Genus</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in objs.genus.data %}
+        <tr>
+          <td>{{ row.Genus }}</td>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <table id="data" class="table table-striped",style="display: inline-block;">
+    <thead>
+      <tr>
+        <th>Species</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in objs.species.data %}
+        <tr>
+          <td>{{ row.Species }}</td>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

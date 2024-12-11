@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Dynamic Searches</title>
+    <style>
+        /* Your existing styles */
+        .suggestions {
+            border: 1px solid #ccc;
+            max-height: 150px;
+            overflow-y: auto;
+            position: absolute;
+            background: white;
+            width: 200px;
+            z-index: 1000;
+        }
+        .suggestion-item {
+            padding: 8px;
+            cursor: pointer;
+        }
+        .suggestion-item:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search Different Databases</h1>
+    
+    <form id="searchForm" method="POST" action="/submit">  <!-- Replace /submit with your actual form submission route -->
+
+        <label for="DetectionMethod">Detection Method:</label>
+        <input type="text" id="DetectionMethod" name="DetectionMethod" value="{{ obj.data[0].DetectionMethod }}"><br><br>
+
+        <label for="DateofDetection">Date of Detection:</label>
+        <input type="text" id="DateofDetection" name="DateofDetection" value="{{ obj.data[0].DateofDetection }}"><br><br>
+
+        Analyst who detected:<br>
+        <select name="Analyst">
+            {% for user in obj.users.data  %}
+                {% if  obj.data[0].uid == user.uid %}
+                    <option selected="true" value="{{ user.uid }}">{{ user.name }}</option>
+                {% else %}
+                    <option value="{{ user.uid }}">{{ user.name }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        Sample used:<br>
+        <select name="Sample">
+            {% for samples in obj.samples.data  %}
+                {% if  obj.data[0].SampleID == samples.SampleID %}
+                    <option selected="true" value="{{ samples.SampleID }}">{{ samples.Name }}</option>
+                {% else %}
+                    <option value="{{ samples.SampleID }}">{{ samples.Name }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        Sequencing session used:<br>
+        <select name="Sequencing">
+            {% for sequencing in obj.sequencing.data  %}
+                {% if  obj.data[0].SeqID == sequencing.SeqID %}
+                    <option selected="true" value="{{ sequencing.SeqID }}">{{ sequencing.Technique }} {{ sequencing.DateSeq }}</option>
+                {% else %}
+                    <option value="{{ sequencing.SeqID }}">{{ sequencing.Technique }} {{ sequencing.DateSeq }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <br>
+
+        <!-- PhylumID Search Box -->
+        <label for="Phylum">Phylum:</label>
+        <input type="text" id="phylumSearchBox" name="SpeciesName" placeholder="Start typing Phylum..." autocomplete="off">
+        <div id="phylumSuggestions" class="suggestions"></div>
+
+        <!-- ClassID Search Box -->
+        <label for="Genus">Genus:</label>
+        <input type="text" id="genusSeachBox" name="SpeciesName" placeholder="Start typing Genus..." autocomplete="off">
+        <div id="genusSuggestions" class="suggestions"></div>
+
+        <!-- OrderID Search Box -->
+        <label for="Species">Species:</label>
+        <input type="text" id="speciesSearchBox" name="SpeciesName" placeholder="Start typing Species..." autocomplete="off">
+        <div id="speciesSuggestions" class="suggestions"></div>
+
+        <!-- Submit Button -->
+        <button type="submit">Submit</button>
+
+    </form>
+
+    <script>
+        // Function to handle dynamic search for any field
+        function setupSearch(inputId, suggestionsId, searchUrl) {
+            document.getElementById(inputId).addEventListener('input', function() {
+                const query = this.value;
+                
+                if (query.length > 1) {  // Optional: Start search after typing 3 characters
+                    fetch(`${searchUrl}?query=${query}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            const suggestionsBox = document.getElementById(suggestionsId);
+                            suggestionsBox.innerHTML = '';  // Clear previous suggestions
+                            
+                            if (data.length === 0) {
+                                suggestionsBox.style.display = 'none';
+                            } else {
+                                suggestionsBox.style.display = 'block';
+                                data.forEach(item => {
+                                    const div = document.createElement('div');
+                                    div.classList.add('suggestion-item');
+                                    div.textContent = item;
+                                    div.addEventListener('click', function() {
+                                        document.getElementById(inputId).value = item;
+                                        suggestionsBox.innerHTML = '';  // Clear suggestions
+                                    });
+                                    suggestionsBox.appendChild(div);
+                                });
+                            }
+                        });
+                } else {
+                    document.getElementById(suggestionsId).innerHTML = '';  // Clear suggestions if input is too short
+                }
+            });
+        }
+
+        // Setup dynamic search for each field
+        setupSearch('phylumSearchBox', 'phylumSuggestions', '/searchPhylum');
+        setupSearch('genusSearchBox', 'genusSuggestions', '/searchGenus');
+        setupSearch('speciesSearchBox', 'speciesSuggestions', '/searchSpecies');
+    </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{% extends "taxonomy_base.html" %}
+
+{% block content %}
+            <div class="error_text">
+                {% if obj.errors|length > 0 %}
+                    {% for error in obj.errors  %}
+                        <div>{{ error }}</div>
+                    {% endfor %}
+				{% endif %}
+            </div>
+            <div>
+                <form action="/taxonomy/genus/manage?action=insert" method="POST">
+                    Genus:<br>
+                    <input type="text" name="Genus" value="{{ obj.data[0].Genus }}" />
+                    <br>
+
+                <br>
+                <br>
+                <input type="submit" value="Submit" />
+                </form>
+                
+            </div>
+{% endblock %}

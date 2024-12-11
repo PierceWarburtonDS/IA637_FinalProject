@@ -1,0 +1,13 @@
+{% extends "taxonomy_base.html" %}
+
+{% block content %}
+            <div>
+                
+
+                <div> <a href="manage?pkval=new">Create new</a> </div>
+                
+                {% for obj in objs.data  %}
+					<div> <a href="manage?pkval={{ obj.speciesID }}">{{ obj.speciesID }}</a> {{ obj.Species }} </div>
+				{% endfor %}
+            </div>
+{% endblock %}

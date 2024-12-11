@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<img align="right" src="static/AllofMeCover.jpeg" alt=""width="900" height="900">
+    <h1>Main menu</h1>
+      <div id="menumsg">
+		Hello, {{ me.name }}  ({{ me.uid }}, {{ me.role }})
+	  </div>
+	<br><br>
+
+	
+	<a href="/users/view">View Users</a><br>
+	<br>
+	<a href="/samples/view">View Samples</a><br>
+	<br>
+	<a href="/sequencing/manage">Manage Sequencings</a><br>
+	<a href="sequencing/view">View Sequencings</a><br>
+	<br>
+	<a href="/detections/manage">Manage Detections</a><br>
+	<a href="detections/view">View Detections</a><br>
+	<br>
+	<a href="/taxonomy/taxonomy_main_menu">Taxonomical Classifications</a><br>
+	<br>
+	<br>
+	<br>
+	<a href="/logout">Logout</a><br>
+	
+	
+{% endblock %}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>The Realm</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<script>
+    function save_column() {
+        var column = document.getElementById('FilterColumn');
+    }
+    function save_value() {
+        var value = document.getElementById('FilterValue');
+    }
+
+</script>
+<body>
+    <div> <a href="/main">Main menu</a> </div><br><br>
+
+
+    <h1>Query Taxonomy Database and Download Results</h1>
+
+    <!-- Dropdown to select department -->
+    <form id="FilterColumn">
+        <label for="FilterColumn">Select Column:</label>
+        <select id="FilterColumn" name="FilterColumn">
+            <option value="">{{ temp_column }}</option>
+            {% for col in objs.fields %}
+                <option value="{{ col }}">{{ col }}</option>
+            {% endfor %}
+        </select>
+        <button onclick="return save_column()" type="submit">Column</button>
+    </form>
+    <form id="FilterValue">
+        <label for="FilterValue">Filter by:</label>
+        <select id="FilterValue" name="FilterValue">
+            <option value="">{{ temp_value }}</option>
+            {% for value in objs.colvalues %}
+                <option value="{{ value }}">{{ value }}</option>
+            {% endfor %}
+        </select>
+        <button onclick="return save_value()" type="submit">Filter</button>
+    </form>
+    <br>
+    <br>
+    <form id="Download_type">
+        <label for="Download_type">Download as:</label>
+        <select id="Download_type" name="Download_type">
+            <option value="csv">.csv </option>
+            <option value="txt">.tsv</option>
+        </select>
+        <button type="submit">Download</button>
+    </form>
+    <br>
+
+
+    <!-- Results Table -->
+    <h2>Results</h2>
+    <table id="Data" class="table table-striped">
+        <thead>
+          <tr>
+            {% for col in objs.fields %}
+                <th>{{ col }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+            {% for row in objs.data %}
+            <tr>
+                {% for value in row %}
+                    <td>{{ row[value] }}</td>
+                {% endfor %}
+            {% endfor %}
+            </tr>
+        </tbody>
+      </table>
+
+    <!-- Download CSV
+    <br>
+    <br>
+    <form id="Download_type">
+        <label for="Download_type">Download as:</label>
+        <select id="Download_type" name="Download_type">
+            <option value="csv">{{ csv }}</option>
+            <option value="txt">{{ txt }}</option>
+        <button type="submit">Download</button>
+    <form> -->
+</body>
+</html>

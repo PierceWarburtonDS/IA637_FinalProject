@@ -1,0 +1,24 @@
+{% extends "taxonomy_base.html" %}
+{% block content %}
+            <div class="error_text" >
+                {% if obj.errors|length > 0 %}
+                    {% for error in obj.errors  %}
+                        <div>{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div>
+                <form action="/taxonomy/phylum/manage?pkval={{ obj.data[0].phylumID }}&action=update" method="POST">
+                    Species:<br>
+                    <input type="text" name="Phylum" value="{{ obj.data[0].Phylum }}" />
+                    <br>
+                    <br>
+                    <input type="submit" value="Submit" />
+                </form>
+                
+            </div>
+            <div>
+                <br><br>
+                <a href="/taxonomy/phylum/manage?pkval={{ obj.data[0].phylumID }}&action=delete">Delete</a>
+            </div>
+{% endblock %}

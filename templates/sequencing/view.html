@@ -1,0 +1,26 @@
+{% extends "tablebase.html" %}
+
+{% block content %}
+  <table id="data" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Technique</th>
+        <th>LabTech</th>
+        <th>Date Sequenced</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in objs.data %}
+        <tr>
+          <td>{{ row.Technique }}</td>
+          {% for user in objs.users.data  %}
+            {% if  row.LabTech == user.uid %}
+              <td>{{ user.user_name }}</td>
+            {% endif %}
+          {% endfor %}
+          <td>{{ row.DateSeq }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "tablebase.html" %}
+
+{% block content %}
+  <table id="data" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Sample</th>
+        <th>Sequencing</th>
+        <th>Detection Method</th>
+        <th>Phylum</th>
+        <th>Genus</th>
+        <th>Species</th>
+        <th>Analyst</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in objs.data %}
+        <tr>
+          {% for sample in objs.samples.data  %}
+            {% if  row.SampleID == sample.SampleID %}
+              <td>{{ sample.SampleName }}</td>
+            {% endif %}
+          {% endfor %}
+          {% for sequencing in objs.sequencing.data  %}
+            {% if  row.SeqID == sequencing.SeqID %}
+              <td>{{ sequencing.Technique }}</td>
+            {% endif %}
+          {% endfor %}
+          <td>{{ row.DetectionMethod }}</td>
+          {% for phylum in objs.phylum.data  %}
+            {% if  row.PhylumID == phylum.phylumID %}
+              <td>{{ phylum.Phylum }}</td>
+            {% endif %}
+          {% endfor %}
+          {% for genus in objs.genus.data  %}
+            {% if  row.GenusID == genus.genusID %}
+              <td>{{ genus.Genus }}</td>
+            {% endif %}
+          {% endfor %}
+          {% for species in objs.species.data  %}
+            {% if  row.SpeciesID == species.speciesID %}
+              <td>{{ species.Species }}</td>
+            {% endif %}
+          {% endfor %}
+          {% for user in objs.users.data  %}
+            {% if  row.DetectionAnalyst == user.uid %}
+              <td>{{ user.user_name }}</td>
+            {% endif %}
+          {% endfor %}
+          <td>{{ row.DateDetected }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

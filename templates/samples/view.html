@@ -1,0 +1,28 @@
+{% extends "tablebase.html" %}
+
+{% block content %}
+  <table id="data" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Collector</th>
+        <th>Date Sampled</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in objs.data %}
+        <tr>
+          <td>{{ row.SampleName }}</td>
+          <td>{{ row.Location }}</td>
+          {% for user in objs.users.data  %}
+            {% if  row.Collector_uid == user.uid %}
+              <td>{{ user.user_name }}</td>
+            {% endif %}
+          {% endfor %}
+          <td>{{ row.DateSampled }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
