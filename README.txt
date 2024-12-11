@@ -3,19 +3,28 @@ IA637
 Final Project
 
 README
+README
 
-The ideal purpose of this web application is to allow for fellow members of my research team to store and transfer data through a central hub. Ideally Labtechs (people in the lab working with the samples) would upload when they took samples and sequenced them while Analysts (those that work with tools to draw complete genomes out of sequenced data) would upload the results of their assembly or identification algorithms. Mostly however people would log on to download specific slices of the data such as all the taxonomy's identified with dorado from a certain sample etc. 
+The ideal purpose of this web application is to allow for fellow members of my research team to store and transfer data through a central hub. Ideally Labtechs (people in the lab working with the samples) would upload when they took samples and sequenced them while Analysts (those that work with tools to draw complete genomes out of sequenced data) would upload the results of their assembly or identification algorithms to the taxonomical tables. Mostly however people would log on to download specific slices of the data such as all the taxonomy's identified with dorado from a certain sample etc. 
 
 The user table has three roles:
 admin --- access to everything
 LabTech --- access to sample and sequencing tables
 Analyst --- access to taxonomical and detection tables
 
-And example user credential would be:
+Three actual credentials are as follows:
 
-user_name: pierce
-user_password: 1234
+user_name: warburpd
+user_password: 123
 role: admin
+
+user_name: LabTech1
+user_password: 12345
+role: LabTech
+
+user_name: Analyst
+user_password: 12345
+role: Analyst
 
 The passwords are not hashed because I just feel its easier that way. The line is simply commented out in users.py, its still technically there, please don't take points off. 
 
@@ -37,7 +46,9 @@ AND COLUMN = VALUE
 
 Finally the file DatabaseCreation.sql will create all the needed tables as well as some example data for messing with the functionality of the application.
 
+
 https://github.com/PierceWarburtonDS/IA637_FinalProject
+
 
 
 
