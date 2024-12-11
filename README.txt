@@ -2,12 +2,20 @@ Fall 2024
 IA637
 Final Project
 
+README
+
 The ideal purpose of this web application is to allow for fellow members of my research team to store and transfer data through a central hub. Ideally Labtechs (people in the lab working with the samples) would upload when they took samples and sequenced them while Analysts (those that work with tools to draw complete genomes out of sequenced data) would upload the results of their assembly or identification algorithms. Mostly however people would log on to download specific slices of the data such as all the taxonomy's identified with dorado from a certain sample etc. 
 
 The user table has three roles:
 admin --- access to everything
 LabTech --- access to sample and sequencing tables
 Analyst --- access to taxonomical and detection tables
+
+And example user credential would be:
+
+user_name: pierce
+user_password: 1234
+role: admin
 
 The passwords are not hashed because I just feel its easier that way. The line is simply commented out in users.py, its still technically there, please don't take points off. 
 
@@ -27,7 +35,9 @@ AND d.DetectionAnalyst=u.uid
 AND COLUMN = VALUE
 
 
+Finally the file DatabaseCreation.sql will create all the needed tables as well as some example data for messing with the functionality of the application.
 
+https://github.com/PierceWarburtonDS/IA637_FinalProject
 
 
 
