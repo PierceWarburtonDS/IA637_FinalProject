@@ -1,8 +1,8 @@
 Fall 2024
 IA637
 Final Project
+Group Members: Just Me :) (Pierce Warburton)
 
-README
 README
 
 The ideal purpose of this web application is to allow for fellow members of my research team to store and transfer data through a central hub. Ideally Labtechs (people in the lab working with the samples) would upload when they took samples and sequenced them while Analysts (those that work with tools to draw complete genomes out of sequenced data) would upload the results of their assembly or identification algorithms to the taxonomical tables. Mostly however people would log on to download specific slices of the data such as all the taxonomy's identified with dorado from a certain sample etc. 
