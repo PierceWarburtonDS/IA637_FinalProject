@@ -1,7 +1,7 @@
 db:
   host: 'mysql.clarksonmsda.org'
-  user: 'warburpd'
-  passwd: 'Potsdam1806'
+  user: 'fake_username'
+  passwd: 'fake_password'
   db: 'warburpd_IA637'
   port: 3306
 tables:
